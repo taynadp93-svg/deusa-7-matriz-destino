@@ -1,133 +1,437 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deusa 7 - Área de Acesso</title>
-  <!-- SDK Oficial do Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Matriz do Destino | Deusa 7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-dark: #0a0512;
+      --purple-deep: #18092b;
+      --purple-accent: #3d1466;
+      --gold-light: #fbe396;
+      --gold-primary: #d4af37;
+      --gold-dark: #aa7c11;
+      --text-light: #f5f2eb;
+      --text-muted: #c3b5d3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(61, 20, 102, 0.5) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(170, 124, 17, 0.15) 0%, transparent 50%);
+      color: var(--text-light);
+      font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
-      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px 60px;
     }
+
     .container {
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       width: 100%;
-      max-width: 400px;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-branding {
       text-align: center;
+      margin-bottom: 25px;
     }
-    h1 {
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .brand-subtitle {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      letter-spacing: 3px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(24, 9, 43, 0.9) 0%, rgba(10, 5, 18, 0.95) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 30px 20px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 25px;
+    }
+
+    .card h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1.3rem;
+      text-align: center;
       margin-bottom: 20px;
-      color: #e0a96d; /* Tom dourado Deusa 7 */
     }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: 1px solid #333;
-      background-color: #2a2a2a;
-      color: #fff;
-      box-sizing: border-box;
+      background: rgba(10, 5, 18, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 8px;
+      padding: 14px;
+      color: var(--text-light);
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
     }
-    button {
-      width: 100%;
-      padding: 12px;
+
+    input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .btn-calc {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      color: #0a0512;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.05rem;
       border: none;
-      border-radius: 6px;
-      background-color: #e0a96d;
-      color: #121212;
-      font-weight: bold;
+      border-radius: 30px;
+      padding: 16px;
+      width: 100%;
       cursor: pointer;
-      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
     }
-    button:hover {
-      background-color: #c89355;
+
+    .btn-calc:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
     }
-    #mensagem {
+
+    .preview-box {
+      display: none;
+      margin-top: 25px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .preview-item {
+      background: rgba(30, 12, 54, 0.6);
+      border-left: 3px solid var(--gold-primary);
+      padding: 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 15px;
+    }
+
+    .preview-item h4 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .preview-item p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .paywall-box {
+      background: linear-gradient(135deg, rgba(61, 20, 102, 0.9) 0%, rgba(24, 9, 43, 0.95) 100%);
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 25px 20px;
+      text-align: center;
+      margin-top: 25px;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+    }
+
+    .paywall-box h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .paywall-box p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn-buy {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      color: #0a0512;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-radius: 30px;
+      padding: 16px 30px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-buy:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    }
+
+    /* Estilos para a área de sucesso / relatório completo que abre no mesmo sítio */
+    .success-view {
+      display: none;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .success-banner {
+      background: linear-gradient(135deg, rgba(61, 20, 102, 0.9) 0%, rgba(24, 9, 43, 0.95) 100%);
+      border: 2px solid var(--gold-primary);
+      border-radius: 16px;
+      padding: 25px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+      margin-bottom: 25px;
+    }
+
+    .report-section {
+      background: rgba(24, 9, 43, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      padding: 22px;
+      width: 100%;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    }
+
+    .report-section h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding-bottom: 8px;
+    }
+
+    .report-section p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      color: #0a0512;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 30px;
+      padding: 16px 30px;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
       margin-top: 15px;
-      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    .sucesso { color: #4caf50; }
-    .erro { color: #f44336; }
-    .escondido { display: none; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Deusa 7</h1>
-    <p>Digita o teu e-mail de compra para acederes ao conteúdo.</p>
-    
-    <input type="email" id="emailCliente" placeholder="O teu e-mail da Hotmart" required>
-    <button onclick="verificarAcesso()">Verificar Acesso</button>
+    <header class="header-branding">
+      <h1 class="brand-title">Deusa 7</h1>
+      <div class="brand-subtitle">Matriz do Destino • Calculadora Oficial</div>
+    </header>
 
-    <div id="mensagem"></div>
+    <!-- SECÇÃO DA CALCULADORA (Visível por defeito) -->
+    <div id="cardCalculadora" class="card">
+      <h2>Descubra os Segredos do seu Mapa</h2>
+      <div class="form-group">
+        <label for="nome">O seu Nome Completo</label>
+        <input type="text" id="nome" placeholder="Digite o seu nome...">
+      </div>
+      <div class="form-group">
+        <label for="nascimento">Data de Nascimento</label>
+        <input type="date" id="nascimento">
+      </div>
+      <button class="btn-calc" onclick="calcularMapa()">✨ CALCULAR MAPA ENERGÉTICO</button>
 
-    <!-- Conteúdo exclusivo protegido -->
-    <div id="conteudoExclusivo" class="escondido" style="margin-top: 25px; border-top: 1px solid #333; padding-top: 20px;">
-      <h2>Bem-vinda à Deusa 7!</h2>
-      <p>O teu acesso está ativo e confirmado.</p>
-      <!-- Podes colocar aqui os teus links, vídeos ou materiais exclusivos -->
+      <!-- RESULTADO DA PRÉVIA -->
+      <div id="resultadoPreview" class="preview-box">
+        <div class="preview-item">
+          <h4>🌟 Arcano da Essência Pessoal: <span id="txtArcanoDia" style="color: #fff;">-</span></h4>
+          <p id="descEssencia">A calcular a sua vibração principal...</p>
+        </div>
+        <div class="preview-item">
+          <h4>💰 Canal de Abundância e Dinheiro: <span id="txtArcanoDinheiro" style="color: #fff;">-</span></h4>
+          <p id="descDinheiro">A mapear os seus bloqueios financeiros...</p>
+        </div>
+
+        <div class="paywall-box">
+          <h3>🔒 O seu Mapa Completo e Profundo foi Gerado</h3>
+          <p>Desbloqueie agora a leitura avançada com os 22 Arcanos, cruzamento de relacionamentos, missão de alma e o relatório completo para download em PDF.</p>
+          <!-- Botão que envia para a Hotmart -->
+          <a href="https://pay.hotmart.com/N108246249X" class="btn-buy" target="_blank">Desbloquear Mapa Completo por R$ 19,90</a>
+          
+          <div style="margin-top: 15px;">
+            <a href="#" onclick="simularLiberacao(event)" style="color: var(--gold-light); font-size: 0.8rem; text-decoration: underline;">(Já pagou? Clique aqui para testar o relatório completo)</a>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- SECÇÃO DO RELATÓRIO COMPLETO (Abre após pagamento ou teste) -->
+    <div id="cardSucesso" class="success-view">
+      <div class="success-banner">
+        <h2>✨ Portal Desbloqueado com Sucesso!</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Aqui está a sua leitura individualizada e profunda de Matriz do Destino.</p>
+      </div>
+
+      <div class="report-section">
+        <h3>🌟 1. A sua Essência Central e Personalidade Profunda</h3>
+        <p>O seu Arcano de nascimento rege a sua vibração primária perante o cosmos. Esta energia molda a forma como se apresenta ao mundo, o seu magnetismo natural e a sua principal virtude de alma.</p>
+        <p><strong>Em estado de Luz:</strong> Expressão autêntica, forte capacidade de liderança intuitiva e facilidade em inspirar as pessoas ao seu redor.</p>
+        <p><strong>Em estado de Sombra:</strong> Tendência para o perfeccionismo excessivo ou autocrítica severa quando os planos não saem exatamente como planeado.</p>
+      </div>
+
+      <div class="report-section">
+        <h3>💰 2. Linha da Abundância, Dinheiro e Dons Ocultos</h3>
+        <p>Este portal revela os talentos natos que o universo colocou à sua disposição para gerar riqueza material e prosperidade sustentável.</p>
+        <p><strong>Bloqueios a eliminar:</strong> Crenças limitantes inconscientes relativas ao merecimento e receio de assumir o seu verdadeiro poder financeiro.</p>
+      </div>
+
+      <div class="report-section">
+        <h3>❤️ 3. Portal dos Relacionamentos e Padrões Afetivos</h3>
+        <p>O mapa aponta o padrão energético que atrai nos seus relacionamentos amorosos e familiares, indicando lições kármicas importantes.</p>
+        <p><strong>Conselho da Deusa:</strong> Cultive a vulnerabilidade saudável e liberte a necessidade de controlo nas parcerias íntimas.</p>
+      </div>
+
+      <div class="report-section">
+        <h3>🔮 4. Ciclos Evolutivos e Missão de Alma Atual</h3>
+        <p>Atravessa atualmente um ciclo de transição e reconfiguração energética. O universo convida-a a focar-se no seu desenvolvimento pessoal e expansão de consciência.</p>
+      </div>
+
+      <button class="btn-pdf" onclick="window.print()">📥 SALVAR / BAIXAR LEITURA EM PDF</button>
+    </div>
+
   </div>
 
   <script>
-    // Credenciais configuradas do teu projeto Supabase
-    const SUPABASE_URL = 'https://plvncoygvdxhwnphlznz.supabase.co'
-    const SUPABASE_ANON_KEY = 'sb_publishable_HXm2W9qGgPQLqh30MUNbbQ_rSs825Q1'
+    function reduzirArcano(n) {
+      if (n <= 22) return n === 0 ? 22 : n;
+      let soma = 0;
+      while (n > 0) {
+        soma += n % 10;
+        n = Math.floor(n / 10);
+      }
+      return soma > 22 ? reduzirArcano(soma) : (soma === 0 ? 22 : soma);
+    }
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    const descricoesArcanos = {
+      1: "O Mago: Energia de manifestação, poder pessoal e forte capacidade de inovação e comunicação.",
+      2: "A Sacerdotisa: Intuição profunda, diplomacia, mistério e forte conexão com o oculto e subtil.",
+      3: "A Imperatriz: Fertilidade, abundância material, elegância, energia materna e poder de criação.",
+      4: "O Imperador: Liderança estruturada, autoridade, estabilidade, foco em resultados e proteção.",
+      5: "O Hierofante: Sabedoria, busca por conhecimento, ética, tradição, mentoria e harmonia familiar.",
+      6: "Os Amantes: Energia do amor incondicional, escolhas pelo coração, estética e harmonia nas parcerias.",
+      7: "O Carro: Vitória, foco em objetivos, movimento constante, dinamismo e liderança em projetos.",
+      8: "A Justiça: Lei de causa e efeito, equilíbrio, busca por clareza, verdade e contratos justos.",
+      9: "O Eremita: Sabedoria interior, profundidade intelectual, busca espiritual e capacidade analítica.",
+      10: "A Roda da Fortuna: Fluxo de sorte, ciclicidade, alinhamento com o destino e oportunidades inesperadas.",
+      11: "A Força: Energia vital intensa, coragem inabalável, paixão, resistência física e magnetismo.",
+      12: "O Enforcado: Nova perspectiva, altruísmo, empatia profunda e capacidade de ver além do óbvio.",
+      13: "A Morte / Transformação: Renascimento profundo, fim de ciclos antigos e coragem para mudanças radicais.",
+      14: "A Temperança: Cura emocional, paz interior, talento artístico, moderação e fluidez espiritual.",
+      15: "O Diabo / Sombra: Magnetismo poderoso, teste de tentações, visão estratégica e revelação de tabus.",
+      16: "A Torre: Despertar espiritual brusco, reestruturação total de bases sólidas e libertação de velhos padrões.",
+      17: "A Estrela: Brilho público, esperança, talento artístico nato, inspiração divina e fama.",
+      18: "A Lua: Imaginação fértil, forte intuição, lei da atração, misticismo e superação de medos internos.",
+      19: "O Sol: Alegria contagiante, sucesso de destaque, abundância, calor humano e otimismo.",
+      20: "O Julgamento: Conexão profunda com ancestrais, perdão, despertar kármico e clareza familiar.",
+      21: "O Mundo: Visão global, expansão internacional, conclusão bem-sucedida e integração universal.",
+      22: "O Louco: Liberdade absoluta, espírito aventureiro, inovação disruptiva e fé cega no futuro."
+    };
 
-    async function verificarAcesso() {
-      const email = document.getElementById('emailCliente').value.trim()
-      const msgDiv = document.getElementById('mensagem')
-      const conteudoDiv = document.getElementById('conteudoExclusivo')
+    function calcularMapa() {
+      const nome = document.getElementById('nome').value;
+      const nascimento = document.getElementById('nascimento').value;
 
-      msgDiv.innerHTML = ''
-      conteudoDiv.classList.add('escondido')
-
-      if (!email) {
-        msgDiv.className = 'erro'
-        msgDiv.innerText = 'Por favor, digita o teu e-mail.'
-        return
+      if (!nome || !nascimento) {
+        alert('Por favor, preencha o seu nome e data de nascimento.');
+        return;
       }
 
-      msgDiv.innerText = 'A verificar o teu acesso...'
+      const partes = nascimento.split('-');
+      const ano = parseInt(partes[0]);
+      const mes = parseInt(partes[1]);
+      const dia = parseInt(partes[2]);
 
-      // Consulta a tabela VENDAS no Supabase
-      const { data, error } = await supabaseClient
-        .from('VENDAS')
-        .select('*')
-        .eq('email', email)
-        .eq('status', 'APPROVED')
-        .maybeSingle()
+      const arcanoDia = reduzirArcano(dia);
+      const arcanoMes = reduzirArcano(mes);
+      const arcanoDinheiro = reduzirArcano(arcanoDia + arcanoMes);
 
-      if (error) {
-        console.error('Erro na consulta:', error)
-        msgDiv.className = 'erro'
-        msgDiv.innerText = 'Erro ao consultar o sistema. Tenta novamente.'
-        return
-      }
+      document.getElementById('txtArcanoDia').innerText = `Arcano ${arcanoDia}`;
+      document.getElementById('descEssencia').innerText = descricoesArcanos[arcanoDia] || "Energia de forte impacto espiritual e pessoal.";
 
-      if (data) {
-        msgDiv.className = 'sucesso'
-        msgDiv.innerText = 'Acesso confirmado com sucesso!'
-        conteudoDiv.classList.remove('escondido')
-      } else {
-        msgDiv.className = 'erro'
-        msgDiv.innerText = 'Nenhum pagamento aprovado encontrado para este e-mail.'
-      }
+      document.getElementById('txtArcanoDinheiro').innerText = `Arcano ${arcanoDinheiro}`;
+      document.getElementById('descDinheiro').innerText = descricoesArcanos[arcanoDinheiro] || "Indica o potencial de ganho material e os portais de prosperidade.";
+
+      document.getElementById('resultadoPreview').style.display = 'block';
+      document.getElementById('resultadoPreview').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Função para testar o relatório completo diretamente no site
+    function simularLiberacao(e) {
+      e.preventDefault();
+      document.getElementById('cardCalculadora').style.display = 'none';
+      document.getElementById('cardSucesso').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 
