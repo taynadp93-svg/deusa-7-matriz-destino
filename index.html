@@ -1,449 +1,135 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)https://magnificent-sprite-ad8313.netlify.app/ -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matriz do Destino | Deusa 7</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="./Matriz do Destino _ Deusa 7_files/css2" rel="stylesheet">
+  <title>Deusa 7 - Área de Acesso</title>
+  <!-- SDK Oficial do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    :root {
-      --bg-dark: #0a0512;
-      --purple-deep: #18092b;
-      --purple-accent: #3d1466;
-      --gold-light: #fbe396;
-      --gold-primary: #d4af37;
-      --gold-dark: #aa7c11;
-      --text-light: #f5f2eb;
-      --text-muted: #c3b5d3;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 50% 10%, rgba(61, 20, 102, 0.5) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(170, 124, 17, 0.15) 0%, transparent 50%);
-      color: var(--text-light);
-      font-family: 'Montserrat', sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 15px 60px;
+      margin: 0;
     }
-
     .container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       width: 100%;
-      max-width: 650px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .header-branding {
+      max-width: 400px;
       text-align: center;
-      margin-bottom: 25px;
     }
-
-    .brand-title {
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, var(--gold-primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-
-    .brand-subtitle {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      letter-spacing: 3px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    .card {
-      background: linear-gradient(135deg, rgba(24, 9, 43, 0.9) 0%, rgba(10, 5, 18, 0.95) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 16px;
-      padding: 30px 20px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      margin-bottom: 25px;
-    }
-
-    .card h2 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      font-size: 1.3rem;
-      text-align: center;
+    h1 {
       margin-bottom: 20px;
+      color: #e0a96d; /* Tom dourado Deusa 7 */
     }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
     input {
       width: 100%;
-      background: rgba(10, 5, 18, 0.8);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 8px;
-      padding: 14px;
-      color: var(--text-light);
-      font-size: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    input:focus {
-      border-color: var(--gold-primary);
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-    }
-
-    .btn-calc {
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-      color: #0a0512;
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1.05rem;
-      border: none;
-      border-radius: 30px;
-      padding: 16px;
-      width: 100%;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 10px;
-    }
-
-    .btn-calc:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
-    }
-
-    .preview-box {
-      display: none;
-      margin-top: 25px;
-      animation: fadeIn 0.8s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .preview-item {
-      background: rgba(30, 12, 54, 0.6);
-      border-left: 3px solid var(--gold-primary);
-      padding: 18px;
-      border-radius: 0 8px 8px 0;
+      padding: 12px;
       margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background-color: #2a2a2a;
+      color: #fff;
+      box-sizing: border-box;
     }
-
-    .preview-item h4 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    .preview-item p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    .paywall-box {
-      background: linear-gradient(135deg, rgba(61, 20, 102, 0.9) 0%, rgba(24, 9, 43, 0.95) 100%);
-      border: 2px solid var(--gold-primary);
-      border-radius: 12px;
-      padding: 25px 20px;
-      text-align: center;
-      margin-top: 25px;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
-    }
-
-    .paywall-box h3 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      font-size: 1.25rem;
-      margin-bottom: 10px;
-    }
-
-    .paywall-box p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .btn-buy {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-      color: #0a0512;
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1.1rem;
-      text-decoration: none;
-      border-radius: 30px;
-      padding: 16px 30px;
+    button {
       width: 100%;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .btn-buy:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
-    }
-
-    /* Estilos para a área de sucesso / relatório completo que abre no mesmo sítio */
-    .success-view {
-      display: none;
-      animation: fadeIn 0.8s ease;
-    }
-
-    .success-banner {
-      background: linear-gradient(135deg, rgba(61, 20, 102, 0.9) 0%, rgba(24, 9, 43, 0.95) 100%);
-      border: 2px solid var(--gold-primary);
-      border-radius: 16px;
-      padding: 25px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
-      margin-bottom: 25px;
-    }
-
-    .report-section {
-      background: rgba(24, 9, 43, 0.85);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      padding: 22px;
-      width: 100%;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    }
-
-    .report-section h3 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      margin-bottom: 12px;
-      font-size: 1.15rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      padding-bottom: 8px;
-    }
-
-    .report-section p {
-      color: var(--text-light);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
-
-    .btn-pdf {
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-      color: #0a0512;
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 1.05rem;
+      padding: 12px;
       border: none;
-      border-radius: 30px;
-      padding: 16px 30px;
-      width: 100%;
+      border-radius: 6px;
+      background-color: #e0a96d;
+      color: #121212;
+      font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #c89355;
+    }
+    #mensagem {
       margin-top: 15px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-size: 14px;
     }
-
-    .success-view { width: 100%; }
-    .success-banner h2 { font-family: 'Cinzel', serif; color: var(--gold-light); margin: 12px 0; overflow-wrap: anywhere; }
-    .report-eyebrow { color: var(--gold-light); font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; }
-    .report-meta { color: var(--text-muted); font-size: .8rem; line-height: 1.7; margin-top: 12px; }
-    .form-error { color: #ffc8c0; font-size: .85rem; line-height: 1.5; }
-    .arcana-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 22px 0; }
-    .arcana-summary div { border-bottom: 1px solid rgba(212,175,55,.3); padding: 10px 0; }
-    .arcana-summary span { display: block; color: var(--text-muted); font-size: .75rem; margin-bottom: 6px; }
-    .arcana-summary strong { color: var(--gold-light); font-size: .9rem; }
-    .report-nav { display: flex; flex-wrap: wrap; gap: 10px 16px; }
-    .report-nav a { color: var(--gold-light); font-size: .8rem; text-underline-offset: 4px; }
-    .report-section { scroll-margin-top: 20px; }
-    .report-section h4 { color: var(--gold-light); font-size: .83rem; letter-spacing: .5px; margin: 20px 0 8px; }
-    .report-section .arcano-label { color: var(--gold-light); font-size: .8rem; margin-bottom: 14px; }
-    .reflection { border-left: 2px solid var(--gold-primary); padding: 8px 0 8px 16px; margin-top: 18px; }
-    .reflection p:last-child { margin-bottom: 0; }
-    .report-section summary { cursor: pointer; color: var(--gold-light); font-family: 'Cinzel', serif; line-height: 1.6; }
-    .report-section[open] summary { margin-bottom: 16px; }
-    .report-actions { text-align: center; }
-    .btn-back { background: transparent; color: var(--gold-light); border: 1px solid rgba(212,175,55,.4); padding: 13px 22px; border-radius: 30px; margin-top: 20px; cursor: pointer; font: inherit; }
-    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 5px; }
-    @media (max-width: 380px) { .arcana-summary { grid-template-columns: 1fr; } .report-section { padding: 18px; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-    @media print {
-      body { background: white; color: #222; padding: 0; }
-      .container { max-width: none; }
-      .header-branding, #cardCalculadora, .report-actions, .report-nav { display: none !important; }
-      #cardSucesso { display: block !important; }
-      .success-banner, .report-section { background: white; border: 1px solid #ccc; box-shadow: none; padding: 16px; }
-      .report-section p, .report-section h3, .report-section h4, .success-banner h2, .report-meta, .report-eyebrow, .arcano-label, .arcana-summary strong, .arcana-summary span { color: #222 !important; }
-      h3, h4 { break-after: avoid; } p, .arcana-summary div { orphans: 3; widows: 3; }
-      .reflection { border-color: #777; } #metodoLeitura { display: none; }
-    }
-
-    [hidden] { display: none !important; }
-    .mandala-heading { text-align: center; margin-bottom: 22px; }
-    .mandala-heading h2 { margin: 10px 0 0; }
-    .mandala-figure { background: #fff; border-radius: 10px; overflow: hidden; color: #39323f; }
-    #desenhoMandala svg { display: block; width: 100%; height: auto; }
-    .mandala-figure figcaption { text-align: center; padding: 4px 14px 18px; font-size: .75rem; line-height: 1.7; }
-    .mandala-legend { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 20px; font-size: .72rem; color: var(--text-muted); }
-    .mandala-legend span { display: inline-flex; align-items: center; gap: 6px; }
-    .mandala-legend i { width: 8px; height: 8px; border-radius: 50%; }
-    .legend-center { background: #f4d64d; } .legend-male { background: #a275c3; } .legend-female { background: #e57c8d; }
-    .mandala-method { margin-top: 18px; border-top: 1px solid rgba(212,175,55,.2); padding-top: 16px; }
-    .mandala-method summary { cursor: pointer; color: var(--gold-light); font-size: .8rem; }
-    .mandala-method p { color: var(--text-muted); font-size: .8rem; line-height: 1.8; margin-top: 12px; }
-    @media print {
-      .mandala-card { background: white; border: 0; box-shadow: none; padding: 0; break-after: page; }
-      .mandala-heading h2, .mandala-legend, .mandala-method p { color: #292532; }
-      .mandala-method { display: none; }
-      .mandala-figure { max-width: 540px; margin: auto; break-inside: avoid; }
-      .mandala-legend { justify-content: center; }
-    }
+    .sucesso { color: #4caf50; }
+    .erro { color: #f44336; }
+    .escondido { display: none; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <header class="header-branding">
-      <h1 class="brand-title">Deusa 7</h1>
-      <div class="brand-subtitle">Matriz do Destino • Calculadora Oficial</div>
-    </header>
+    <h1>Deusa 7</h1>
+    <p>Digita o teu e-mail de compra para acederes ao conteúdo.</p>
+    
+    <input type="email" id="emailCliente" placeholder="O teu e-mail da Hotmart" required>
+    <button onclick="verificarAcesso()">Verificar Acesso</button>
 
-    <!-- SECÇÃO DA CALCULADORA (Visível por defeito) -->
-    <div id="cardCalculadora" class="card">
-      <h2>Descubra os Segredos do seu Mapa</h2>
-      <div class="form-group">
-        <label for="nome">O seu Nome Completo</label>
-        <input type="text" id="nome" placeholder="Digite o seu nome..." autocomplete="name" maxlength="120" aria-describedby="erroFormulario">
-      </div>
-      <div class="form-group">
-        <label for="nascimento">Data de Nascimento</label>
-        <input type="date" id="nascimento" min="0001-01-01" aria-describedby="erroFormulario" max="2026-10-29">
-      </div>
-      <p id="erroFormulario" class="form-error" role="alert"></p>
-      <button class="btn-calc" onclick="calcularMapa()">CALCULAR MAPA ENERGÉTICO</button>
+    <div id="mensagem"></div>
 
-      <!-- RESULTADO DA PRÉVIA -->
-      <div id="resultadoPreview" class="preview-box">
-        <div class="preview-item">
-          <h4>🌟 Arcano da Essência Central: <span id="txtArcanoEssencia" style="color: #fff;">-</span></h4>
-          <p id="descEssencia">A calcular a sua vibração principal...</p>
-        </div>
-        <div class="preview-item">
-          <h4>💰 Canal de Abundância e Dinheiro: <span id="txtArcanoDinheiro" style="color: #fff;">-</span></h4>
-          <p id="descDinheiro">A mapear os seus bloqueios financeiros...</p>
-        </div>
-
-        <div class="paywall-box">
-          <h3>🔒 O seu Mapa Completo e Profundo foi Gerado</h3>
-          <p>Explore os arcanos do seu mapa em uma leitura ampliada de essência, talentos, abundância, relacionamentos, propósito e ciclo anual, com práticas de reflexão e opção de salvar em PDF.</p>
-          <!-- Botão que envia para a Hotmart -->
-          <a href="https://pay.hotmart.com/N108246249X" class="btn-buy" target="_blank" rel="noopener noreferrer">Desbloquear Mapa Completo por R$ 19,90</a>
-          
-          <div style="margin-top: 15px;">
-            <a href="https://magnificent-sprite-ad8313.netlify.app/#" onclick="simularLiberacao(event)" style="color: var(--gold-light); font-size: 0.8rem; text-decoration: underline;">Experimentar a leitura completa (demonstração)</a>
-          </div>
-        </div>
-      </div>
+    <!-- Conteúdo exclusivo protegido -->
+    <div id="conteudoExclusivo" class="escondido" style="margin-top: 25px; border-top: 1px solid #333; padding-top: 20px;">
+      <h2>Bem-vinda à Deusa 7!</h2>
+      <p>O teu acesso está ativo e confirmado.</p>
+      <!-- Podes colocar aqui os teus links, vídeos ou materiais exclusivos -->
     </div>
-
-    <section id="blocoMandala" class="card mandala-card" hidden="" aria-labelledby="tituloMandala">
-      <div class="mandala-heading">
-        <p class="report-eyebrow">A geometria do seu nascimento</p>
-        <h2 id="tituloMandala">Sua mandala do destino</h2>
-        <p id="dataMandala" class="report-meta"></p>
-      </div>
-      <figure class="mandala-figure">
-        <div id="desenhoMandala"></div>
-        <figcaption id="valoresMandala" aria-live="polite"></figcaption>
-      </figure>
-      <div class="mandala-legend" aria-label="Legenda da mandala">
-        <span><i class="legend-center"></i>Essência central</span>
-        <span><i class="legend-male"></i>Linha masculina</span>
-        <span><i class="legend-female"></i>Linha feminina</span>
-        <span>♡ Afetivo</span><span>$ Material</span>
-      </div>
-      <p class="report-meta">As idades no contorno marcam décadas simbólicas. Os números e as linhas são uma proposta de reflexão, sem previsão de acontecimentos.</p>
-      <details class="mandala-method">
-        <summary>Entenda os números do desenho</summary>
-        <p>Mandala inspirada no modelo octogonal da referência. R significa somar os dígitos até obter um número entre 1 e 22, preservando valores que já estejam nessa faixa.</p>
-        <p id="formulasMandala"></p>
-        <p>A essência da leitura é o número do centro desta mandala. Os pontos do coração e do símbolo $ também alimentam as respectivas seções do relatório. Os pontos auxiliares e suas interpretações seguem as fórmulas descritas aqui; não se afirma a reprodução integral de uma escola específica.</p>
-      </details>
-    </section>
-
-    <!-- Leitura demonstrativa; não representa confirmação de pagamento. -->
-    <div id="cardSucesso" class="success-view">
-      <header class="success-banner">
-        <p class="report-eyebrow">Deusa 7 · Leitura ampliada · Demonstração</p>
-        <h2 id="tituloLeitura">Sua Matriz do Destino</h2>
-        <p id="dadosLeitura" class="report-meta"></p>
-      </header>
-      <section class="report-section intro-reading">
-        <h3>Um convite ao autoconhecimento</h3>
-        <p>Esta leitura simbólica combina a sua data de nascimento com os 22 Arcanos Maiores. Observe o que faz sentido na sua história, reconheça as nuances e transforme a reflexão em pequenas escolhas conscientes.</p>
-        <p>As interpretações são possibilidades de reflexão, não previsões ou características comprovadas. Pessoas com a mesma data recebem os mesmos arcanos; suas experiências e escolhas dão significado próprio à leitura. O nome identifica o relatório e não participa do cálculo.</p>
-        <div id="resumoArcanos" class="arcana-summary" aria-label="Arcanos do seu mapa"></div>
-        <nav class="report-nav" aria-label="Seções da leitura">
-          <a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-essencia">Essência</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-talentos">Talentos</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-abundancia">Abundância</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-relacoes">Relações</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-proposito">Propósito</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-ciclo">Ciclo anual</a><a href="https://magnificent-sprite-ad8313.netlify.app/#leitura-integracao">Integração</a>
-        </nav>
-      </section>
-      <div id="conteudoLeitura"></div>
-      <details class="report-section" id="metodoLeitura">
-        <summary>Como os seus arcanos são calculados</summary>
-        <p>O desenho e a leitura usam o mesmo cálculo natal: dia, mês e ano reduzidos formam os três pontos principais; a soma reduzida deles forma a base; a soma reduzida dos quatro pontos forma o centro, que representa a essência. Os pontos auxiliares seguem as fórmulas detalhadas na mandala. O ciclo anual é um complemento separado.</p>
-        <p>R indica a redução de um número somando seus dígitos repetidamente até obter um valor de 1 a 22. Valores de 1 a 22 são preservados; zero corresponde a 22. A Justiça ocupa a posição 8 e A Força, a 11.</p>
-        <div id="calculosLeitura"></div>
-        <p>O ciclo anual considera o ano civil atual, de janeiro a dezembro. Não é uma previsão de acontecimentos. A posição de relacionamentos reflete a sua própria data; uma análise entre duas pessoas exigiria também os dados da outra pessoa.</p>
-      </details>
-      <div class="report-actions">
-        <button class="btn-pdf" onclick="window.print()">SALVAR LEITURA EM PDF / IMPRIMIR</button>
-        <p class="report-meta">Na janela de impressão do navegador, escolha “Salvar como PDF”, se disponível.</p>
-        <button class="btn-back" onclick="voltarCalculadora()">Voltar e calcular outra leitura</button>
-      </div>
-    </div>
-
   </div>
 
-  <script src="./Matriz do Destino _ Deusa 7_files/leitura.js.download"></script>
-  <script src="./Matriz do Destino _ Deusa 7_files/mandala.js.download"></script>
+  <script>
+    // Credenciais configuradas do teu projeto Supabase
+    const SUPABASE_URL = 'https://plvncoygvdxhwnphlznz.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_HXm2W9qGgPQLqh30MUNbbQ_rSs825Q1'
 
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-<script async="" src="./Matriz do Destino _ Deusa 7_files/ar" data-netlify-deploy-id="6ae376cb104e3813c98d4265" data-netlify-site-id="79102fbd-fea6-4068-8116-9f16668aac25" data-agent-runner-id="6ae35d00ec674b7bfab99690"></script>
-<script async="" src="./Matriz do Destino _ Deusa 7_files/hud" data-nf-variant="owner-private" data-netlify-site-id="79102fbd-fea6-4068-8116-9f16668aac25" data-app-host="app.netlify.com"></script>
-<iframe id="nl-hud-frame" title="Netlify" style="position: fixed; bottom: 0px; right: 0px; border: 0px; margin: 0px; padding: 0px; background: transparent; color-scheme: dark; z-index: 2147483645; width: 573px; height: 78px; clip-path: path(&quot;M 3 3 H 560 V 65 H 3 Z&quot;);" data-nl-ready="1" src="./Matriz do Destino _ Deusa 7_files/saved_resource.html"></iframe></body></html>
+    async function verificarAcesso() {
+      const email = document.getElementById('emailCliente').value.trim()
+      const msgDiv = document.getElementById('mensagem')
+      const conteudoDiv = document.getElementById('conteudoExclusivo')
+
+      msgDiv.innerHTML = ''
+      conteudoDiv.classList.add('escondido')
+
+      if (!email) {
+        msgDiv.className = 'erro'
+        msgDiv.innerText = 'Por favor, digita o teu e-mail.'
+        return
+      }
+
+      msgDiv.innerText = 'A verificar o teu acesso...'
+
+      // Consulta a tabela VENDAS no Supabase
+      const { data, error } = await supabaseClient
+        .from('VENDAS')
+        .select('*')
+        .eq('email', email)
+        .eq('status', 'APPROVED')
+        .maybeSingle()
+
+      if (error) {
+        console.error('Erro na consulta:', error)
+        msgDiv.className = 'erro'
+        msgDiv.innerText = 'Erro ao consultar o sistema. Tenta novamente.'
+        return
+      }
+
+      if (data) {
+        msgDiv.className = 'sucesso'
+        msgDiv.innerText = 'Acesso confirmado com sucesso!'
+        conteudoDiv.classList.remove('escondido')
+      } else {
+        msgDiv.className = 'erro'
+        msgDiv.innerText = 'Nenhum pagamento aprovado encontrado para este e-mail.'
+      }
+    }
+  </script>
+
+</body>
+</html>
